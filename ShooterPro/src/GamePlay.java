@@ -13,6 +13,9 @@ public class GamePlay extends JPanel implements ActionListener {
 	private boolean shooter1left = false;
 	private boolean shooter1down = false;
 	private boolean shooter1up = true;	
+	private int shooter1score = 0;
+	private int shooter1lives = 10;
+	
 
 	
 	private ImageIcon shooter2;	
@@ -22,12 +25,30 @@ public class GamePlay extends JPanel implements ActionListener {
 	private boolean shooter2left = false;
 	private boolean shooter2down = false;
 	private boolean shooter2up = true;
+	private int shooter2score = 0;
+	private int shooter2lives = 10;
+	
+	private Timer timer;
+	private int delay=8;
+	
+	
+	private Shooter1Listener shooter1Listener;
+	private Shooter2Listener shooter2Listener;
 
 	private boolean play = true;
 	
 	public GamePlay()
 	{				
 		br = new Brick();
+		shooter1Listener = new Shooter1Listener();
+		shooter2Listener = new Shooter2Listener();
+        setFocusable(true);
+        //addKeyListener(this);
+        addKeyListener(shooter1Listener);
+        addKeyListener(shooter2Listener);
+        setFocusTraversalKeysEnabled(false);
+        timer=new Timer(delay,this);
+        timer.start();
 	}
 	
 	public void paint(Graphics g)
@@ -82,8 +103,136 @@ public class GamePlay extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		timer.start();
 		
+		repaint();
+		
+	}
+	
+	private class Shooter1Listener implements KeyListener
+	{
+		public void keyTyped(KeyEvent e) {}
+		public void keyReleased(KeyEvent e) {}		
+		public void keyPressed(KeyEvent e) {	
+			if(e.getKeyCode()== KeyEvent.VK_SPACE && (shooter1lives == 0 || shooter2lives == 0))
+			{
+				br = new Brick();
+				shooter1X = 200;
+				shooter1Y = 530;	
+				shooter1right = false;
+				shooter1left = false;
+				shooter1down = false;
+				shooter1up = true;	
+				
+				shooter2X = 400;
+				shooter2Y = 530;	
+				shooter2right = false;
+				shooter2left = false;
+				shooter2down = false;
+				shooter2up = true;	
+				
+				shooter1score = 0;
+				shooter1lives = 5;
+				shooter2score = 0;
+				shooter2lives = 5;
+				
+				play = true;
+				repaint();
+			}
+
+			if(e.getKeyCode()== KeyEvent.VK_W)
+			{
+				shooter1right = false;
+				shooter1left = false;
+				shooter1down = false; 
+				shooter1up = true;		
+				
+				if(!(shooter1Y < 10))
+					shooter1Y-=10;
+
+			}
+			if(e.getKeyCode()== KeyEvent.VK_A)
+			{
+				shooter1right = false;
+				shooter1left = true;
+				shooter1down = false;
+				shooter1up = false;
+				
+				if(!(shooter1X < 10))
+					shooter1X-=10;
+			}
+			if(e.getKeyCode()== KeyEvent.VK_S)
+			{
+				shooter1right = false;
+				shooter1left = false;
+				shooter1down = true;
+				shooter1up = false;
+				
+				if(!(shooter1Y > 540))
+					shooter1Y+=10;
+			}
+			if(e.getKeyCode()== KeyEvent.VK_D)
+			{
+				shooter1right = true;
+				shooter1left = false;
+				shooter1down = false;
+				shooter1up = false;
+				
+				if(!(shooter1X > 590))
+					shooter1X+=10;
+			}
+		}
+	}
+	
+	private class Shooter2Listener implements KeyListener
+	{
+		public void keyTyped(KeyEvent e) {}
+		public void keyReleased(KeyEvent e) {}		
+		public void keyPressed(KeyEvent e) {	
+
+			if(e.getKeyCode()== KeyEvent.VK_UP)
+			{
+				shooter2right = false;
+				shooter2left = false;
+				shooter2down = false;
+				shooter2up = true;		
+				
+				if(!(shooter2Y < 10))
+					shooter2Y-=10;
+
+			}
+			if(e.getKeyCode()== KeyEvent.VK_LEFT)
+			{
+				shooter2right = false;
+				shooter2left = true;
+				shooter2down = false;
+				shooter2up = false;
+				
+				if(!(shooter2X < 10))
+					shooter2X-=10;
+			}
+			if(e.getKeyCode()== KeyEvent.VK_DOWN)
+			{
+				shooter2right = false;
+				shooter2left = false;
+				shooter2down = true;
+				shooter2up = false;
+				
+				if(!(shooter2Y > 540))
+					shooter2Y+=10;
+			}
+			if(e.getKeyCode()== KeyEvent.VK_RIGHT)
+			{
+				shooter2right = true;
+				shooter2left = false;
+				shooter2down = false;
+				shooter2up = false;
+				
+				if(!(shooter2X > 590))
+					shooter2X+=10;
+			}
+			
+		}
 	}
 
 }
