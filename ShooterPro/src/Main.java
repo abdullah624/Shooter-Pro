@@ -10,7 +10,6 @@ public class Main {
 		obj.setTitle("Shooter Pro");	
 		obj.setBackground(Color.gray);
 		obj.setResizable(false);
-		
 		obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		obj.add(gamePlay);
 		obj.setVisible(true);

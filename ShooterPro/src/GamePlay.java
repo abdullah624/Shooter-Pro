@@ -44,8 +44,7 @@ public class GamePlay extends JPanel implements ActionListener {
 
 	private boolean play = true;
 	
-	public GamePlay()
-	{				
+	public GamePlay() {		
 		br = new Brick();
 		shooter1Listener = new Shooter1Listener();
 		shooter2Listener = new Shooter2Listener();
@@ -54,12 +53,11 @@ public class GamePlay extends JPanel implements ActionListener {
         addKeyListener(shooter1Listener);
         addKeyListener(shooter2Listener);
         setFocusTraversalKeysEnabled(false);
-        timer=new Timer(delay,this);
+        timer = new Timer(delay, this);
         timer.start();
 	}
 	
-	public void paint(Graphics g)
-	{    		
+	public void paint(Graphics g) {    		
 		// play background
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 650, 600);
@@ -100,37 +98,28 @@ public class GamePlay extends JPanel implements ActionListener {
 			shooter2.paintIcon(this, g, shooter2X, shooter2Y);
 			
 			// Shooter 1 shooting and scoring
-			if(shooter1Bullet != null && shooter1Shoot)
-			{
-				if(bulletShootDir1.equals(""))
-				{
-					if(shooter1up)
-					{					
+			if(shooter1Bullet != null && shooter1Shoot) {
+				if(bulletShootDir1.equals("")) {
+					if(shooter1up) {					
 						bulletShootDir1 = "up";
 					}
-					else if(shooter1down)
-					{					
+					else if(shooter1down) {					
 						bulletShootDir1 = "down";
 					}
-					else if(shooter1right)
-					{				
+					else if(shooter1right) {				
 						bulletShootDir1 = "right";
 					}
-					else if(shooter1left)
-					{			
+					else if(shooter1left) {			
 						bulletShootDir1 = "left";
 					}
 				}
-				else
-				{
+				else {
 					shooter1Bullet.move(bulletShootDir1);
 					shooter1Bullet.drawBullet(g);
 				}
 				
 				
-				if(new Rectangle(shooter1Bullet.getXPos(), shooter1Bullet.getYPos(), 10, 10)
-				.intersects(new Rectangle(shooter2X, shooter2Y, 50, 50)))
-				{
+				if(new Rectangle(shooter1Bullet.getXPos(), shooter1Bullet.getYPos(), 10, 10).intersects(new Rectangle(shooter2X, shooter2Y, 50, 50))) {
 					shooter1score += 10;
 					shooter2lives -= 1;
 					shooter1Bullet = null;
@@ -138,8 +127,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					bulletShootDir1 = "";
 				}
 				
-				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos()))
-				{
+				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
 					shooter1Bullet = null;
 					shooter1Shoot = false;
 					bulletShootDir1 = "";				
@@ -151,11 +139,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					bulletShootDir1 = "";
 				}
 	
-				if(shooter1Bullet.getYPos() < 1 
-						|| shooter1Bullet.getYPos() > 580
-						|| shooter1Bullet.getXPos() < 1
-						|| shooter1Bullet.getXPos() > 630)
-				{
+				if(shooter1Bullet.getYPos() < 1 || shooter1Bullet.getYPos() > 580 || shooter1Bullet.getXPos() < 1 || shooter1Bullet.getXPos() > 630) {
 					shooter1Bullet = null;
 					shooter1Shoot = false;
 					bulletShootDir1 = "";
@@ -163,37 +147,28 @@ public class GamePlay extends JPanel implements ActionListener {
 			}
 			
 			// Shooter 2 shooting and scoring
-			if(shooter2Bullet != null && shooter2Shoot)
-			{
-				if(bulletShootDir2.equals(""))
-				{
-					if(shooter2up)
-					{					
+			if(shooter2Bullet != null && shooter2Shoot) {
+				if(bulletShootDir2.equals("")) {
+					if(shooter2up) {					
 						bulletShootDir2 = "up";
 					}
-					else if(shooter2down)
-					{					
+					else if(shooter2down) {					
 						bulletShootDir2 = "down";
 					}
-					else if(shooter2right)
-					{				
+					else if(shooter2right) {				
 						bulletShootDir2 = "right";
 					}
-					else if(shooter2left)
-					{			
+					else if(shooter2left) {			
 						bulletShootDir2 = "left";
 					}
 				}
-				else
-				{
+				else {
 					shooter2Bullet.move(bulletShootDir2);
 					shooter2Bullet.drawBullet(g);
 				}
 				
 				
-				if(new Rectangle(shooter2Bullet.getXPos(), shooter2Bullet.getYPos(), 10, 10)
-				.intersects(new Rectangle(shooter1X, shooter1Y, 50, 50)))
-				{
+				if(new Rectangle(shooter2Bullet.getXPos(), shooter2Bullet.getYPos(), 10, 10).intersects(new Rectangle(shooter1X, shooter1Y, 50, 50))) {
 					shooter2score += 10;
 					shooter1lives -= 1;
 					shooter2Bullet = null;
@@ -201,8 +176,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					bulletShootDir2 = "";
 				}
 				
-				if(br.checkSolidCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos()))
-				{
+				if(br.checkSolidCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
 					shooter2Bullet = null;
 					shooter2Shoot = false;
 					bulletShootDir2 = "";				
@@ -214,11 +188,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					bulletShootDir2 = "";
 				}
 				
-				if(shooter2Bullet.getYPos() < 1 
-						|| shooter2Bullet.getYPos() > 580
-						|| shooter2Bullet.getXPos() < 1
-						|| shooter2Bullet.getXPos() > 630)
-				{
+				if(shooter2Bullet.getYPos() < 1 || shooter2Bullet.getYPos() > 580 || shooter2Bullet.getXPos() < 1 || shooter2Bullet.getXPos() > 630) {
 					shooter2Bullet = null;
 					shooter2Shoot = false;
 					bulletShootDir2 = "";
@@ -230,17 +200,17 @@ public class GamePlay extends JPanel implements ActionListener {
 		
 		// Score Panel 		
 		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 20));
+		g.drawString("Player 1", 670,30);
+		g.drawString("Player 2", 670,150);
+		
 		g.setFont(new Font("serif",Font.BOLD, 15));
-		g.drawString("Scores", 700,30);
-		g.drawString("Player 1:  "+shooter1score, 670,60);
-		g.drawString("Player 2:  "+shooter2score, 670,90);
+		g.drawString("Score:  "+shooter1score, 670,60);
+		g.drawString("Lives:  "+shooter1lives, 670,90);	
+		g.drawString("Score:  "+shooter2score, 670,180);
+		g.drawString("Lives:  "+shooter2lives, 670,210);
 		
-		g.drawString("Lives", 700,150);
-		g.drawString("Player 1:  "+shooter1lives, 670,180);
-		g.drawString("Player 2:  "+shooter2lives, 670,210);
-		
-		if(shooter1lives == 0)
-		{
+		if(shooter1lives == 0) {
 			g.setColor(Color.white);
 			g.setFont(new Font("serif",Font.BOLD, 60));
 			g.drawString("Game Over", 200,300);
@@ -250,8 +220,7 @@ public class GamePlay extends JPanel implements ActionListener {
 			g.setFont(new Font("serif",Font.BOLD, 30));
 			g.drawString("(Space to Restart)", 230,430);
 		}
-		else if(shooter2lives == 0)
-		{
+		else if(shooter2lives == 0) {
 			g.setColor(Color.white);
 			g.setFont(new Font("serif",Font.BOLD, 60));
 			g.drawString("Game Over", 200,300);
@@ -270,20 +239,16 @@ public class GamePlay extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		timer.start();
-		
 		repaint();
-		
 	}
 	
-	private class Shooter1Listener implements KeyListener
-	{
+	private class Shooter1Listener implements KeyListener {
 		public void keyTyped(KeyEvent e) {}
-		public void keyReleased(KeyEvent e) {}		
+		public void keyReleased(KeyEvent e) {}
 		public void keyPressed(KeyEvent e) {
 			
 			// Reset score panel and restart the game
-			if(e.getKeyCode()== KeyEvent.VK_SPACE && (shooter1lives == 0 || shooter2lives == 0))
-			{
+			if(e.getKeyCode()== KeyEvent.VK_SPACE && (shooter1lives == 0 || shooter2lives == 0)) {
 				br = new Brick();
 				shooter1X = 200;
 				shooter1Y = 530;	
@@ -309,24 +274,18 @@ public class GamePlay extends JPanel implements ActionListener {
 			}
 			
 			// Shooter 1 shoots
-			if(e.getKeyCode()== KeyEvent.VK_U)
-			{
-				if(!shooter1Shoot)
-				{
-					if(shooter1up)
-					{					
+			if(e.getKeyCode()== KeyEvent.VK_U) {
+				if(!shooter1Shoot) {
+					if(shooter1up) {					
 						shooter1Bullet = new Shooter1Bullet(shooter1X + 20, shooter1Y);
 					}
-					else if(shooter1down)
-					{					
+					else if(shooter1down) {					
 						shooter1Bullet = new Shooter1Bullet(shooter1X + 20, shooter1Y + 40);
 					}
-					else if(shooter1right)
-					{				
+					else if(shooter1right) {				
 						shooter1Bullet = new Shooter1Bullet(shooter1X + 40, shooter1Y + 20);
 					}
-					else if(shooter1left)
-					{			
+					else if(shooter1left) {			
 						shooter1Bullet = new Shooter1Bullet(shooter1X, shooter1Y + 20);
 					}
 					
@@ -335,49 +294,77 @@ public class GamePlay extends JPanel implements ActionListener {
 			}
 
 			// Shooter 1 navigation
-			if(e.getKeyCode()== KeyEvent.VK_W)
-			{
-				shooter1right = false;
-				shooter1left = false;
-				shooter1down = false; 
-				shooter1up = true;		
-				
-				if(!(shooter1Y < 10))
-					shooter1Y-=10;
-
+			if(e.getKeyCode()== KeyEvent.VK_W) {
+				if(br.checkWall(shooter1X, shooter1Y, "up")) {
+					shooter1right = false;
+					shooter1left = false;
+					shooter1down = false; 
+					shooter1up = true;
+				} else{
+					shooter1right = false;
+					shooter1left = false;
+					shooter1down = false; 
+					shooter1up = true;		
+					
+					if(!(shooter1Y < 10))
+						shooter1Y-=10;
+				}
 			}
-			if(e.getKeyCode()== KeyEvent.VK_A)
-			{
-				shooter1right = false;
-				shooter1left = true;
-				shooter1down = false;
-				shooter1up = false;
-				
-				if(!(shooter1X < 10))
-					shooter1X-=10;
+			
+			if(e.getKeyCode()== KeyEvent.VK_A) {
+				if(br.checkWall(shooter1X, shooter1Y, "left")) {
+					shooter1right = false;
+					shooter1left = true;
+					shooter1down = false;
+					shooter1up = false;
+				} else {
+					shooter1right = false;
+					shooter1left = true;
+					shooter1down = false;
+					shooter1up = false;
+					
+					if(!(shooter1X < 10))
+						shooter1X-=10;
+				}
 			}
-			if(e.getKeyCode()== KeyEvent.VK_S)
-			{
-				shooter1right = false;
-				shooter1left = false;
-				shooter1down = true;
-				shooter1up = false;
-				
-				if(!(shooter1Y > 540))
-					shooter1Y+=10;
+			
+			if(e.getKeyCode()== KeyEvent.VK_S) {
+				if(br.checkWall(shooter1X, shooter1Y, "down")) {
+					shooter1right = false;
+					shooter1left = false;
+					shooter1down = true;
+					shooter1up = false;
+				} else {
+					shooter1right = false;
+					shooter1left = false;
+					shooter1down = true;
+					shooter1up = false;
+					
+					if(!(shooter1Y > 540))
+						shooter1Y+=10;
+				}
 			}
-			if(e.getKeyCode()== KeyEvent.VK_D)
-			{
-				shooter1right = true;
-				shooter1left = false;
-				shooter1down = false;
-				shooter1up = false;
-				
-				if(!(shooter1X > 590))
-					shooter1X+=10;
+			
+			if(e.getKeyCode()== KeyEvent.VK_D) {
+				if(br.checkWall(shooter1X, shooter1Y, "right")) {
+					shooter1right = true;
+					shooter1left = false;
+					shooter1down = false;
+					shooter1up = false;
+				} else {
+					shooter1right = true;
+					shooter1left = false;
+					shooter1down = false;
+					shooter1up = false;
+					
+					if(!(shooter1X > 590))
+						shooter1X+=10;
+				}
 			}
+			
 		}
 	}
+	
 	
 	private class Shooter2Listener implements KeyListener
 	{
@@ -412,46 +399,72 @@ public class GamePlay extends JPanel implements ActionListener {
 			}
 
 			// Shooter 2 navigation
-			if(e.getKeyCode()== KeyEvent.VK_UP)
-			{
-				shooter2right = false;
-				shooter2left = false;
-				shooter2down = false;
-				shooter2up = true;		
-				
-				if(!(shooter2Y < 10))
-					shooter2Y-=10;
-
+			if(e.getKeyCode()== KeyEvent.VK_UP) {
+				if(br.checkWall(shooter2X, shooter2Y, "up")) {
+					shooter2right = false;
+					shooter2left = false;
+					shooter2down = false; 
+					shooter2up = true;
+				} else{
+					shooter2right = false;
+					shooter2left = false;
+					shooter2down = false; 
+					shooter2up = true;		
+					
+					if(!(shooter2Y < 10))
+						shooter2Y-=10;
+				}
 			}
-			if(e.getKeyCode()== KeyEvent.VK_LEFT)
-			{
-				shooter2right = false;
-				shooter2left = true;
-				shooter2down = false;
-				shooter2up = false;
-				
-				if(!(shooter2X < 10))
-					shooter2X-=10;
+			
+			if(e.getKeyCode()== KeyEvent.VK_LEFT) {
+				if(br.checkWall(shooter2X, shooter2Y, "left")) {
+					shooter2right = false;
+					shooter2left = true;
+					shooter2down = false;
+					shooter2up = false;
+				} else {
+					shooter2right = false;
+					shooter2left = true;
+					shooter2down = false;
+					shooter2up = false;
+					
+					if(!(shooter2X < 10))
+						shooter2X-=10;
+				}
 			}
-			if(e.getKeyCode()== KeyEvent.VK_DOWN)
-			{
-				shooter2right = false;
-				shooter2left = false;
-				shooter2down = true;
-				shooter2up = false;
-				
-				if(!(shooter2Y > 540))
-					shooter2Y+=10;
+			
+			if(e.getKeyCode()== KeyEvent.VK_DOWN) {
+				if(br.checkWall(shooter2X, shooter2Y, "down")) {
+					shooter2right = false;
+					shooter2left = false;
+					shooter2down = true;
+					shooter2up = false;
+				} else {
+					shooter2right = false;
+					shooter2left = false;
+					shooter2down = true;
+					shooter2up = false;
+					
+					if(!(shooter2Y > 540))
+						shooter2Y+=10;
+				}
 			}
-			if(e.getKeyCode()== KeyEvent.VK_RIGHT)
-			{
-				shooter2right = true;
-				shooter2left = false;
-				shooter2down = false;
-				shooter2up = false;
-				
-				if(!(shooter2X > 590))
-					shooter2X+=10;
+			
+			if(e.getKeyCode()== KeyEvent.VK_RIGHT) {
+				if(br.checkWall(shooter2X, shooter2Y, "right")) {
+					shooter2right = true;
+					shooter2left = false;
+					shooter2down = false;
+					shooter2up = false;
+				} else {
+					shooter2right = true;
+					shooter2left = false;
+					shooter2down = false;
+					shooter2up = false;
+					
+					if(!(shooter2X > 590))
+						shooter2X+=10;
+				}
 			}
 			
 		}

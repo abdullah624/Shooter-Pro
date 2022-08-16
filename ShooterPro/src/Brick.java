@@ -25,67 +25,50 @@ public class Brick {
 	private ImageIcon solidBrickImage;
 	private ImageIcon breakBrickImage;
 	
-	public Brick()
-	{
+	public Brick() {
 		solidBrickImage=new ImageIcon("images/solid_brick.jpg");	
 		breakBrickImage=new ImageIcon("images/break_brick.jpg");
 		
-		for(int i=0; i< brickON.length;i++)
-		{
+		for(int i=0; i< brickON.length; i++) {
 			brickON[i] = 1;
 		}
 	}
 	
-	public void drawSolidBricks(Component c, Graphics g)
-	{
-		for(int i=0; i< solidBricksXPos.length;i++)
-		{
-			
-			{
-				solidBrickImage.paintIcon(c, g, solidBricksXPos[i],solidBricksYPos[i]);
+	public void drawSolidBricks(Component c, Graphics g) {
+		int solidBricksCount = solidBricksXPos.length;
+		for(int i=0; i< solidBricksCount; i++) {
+				solidBrickImage.paintIcon(c, g, solidBricksXPos[i], solidBricksYPos[i]);
+		}
+	}
+	
+	public void drawBreakBricks(Component c, Graphics g) {
+		int breakBricksCouint = bricksXPos.length;
+		for(int i=0; i< breakBricksCouint; i++) {
+			if(brickON[i]==1) {			
+				breakBrickImage.paintIcon(c, g, bricksXPos[i], bricksYPos[i]);
 			}
 		}
 	}
 	
-	public void drawBreakBricks(Component c, Graphics g)
-	{
-		for(int i=0; i< bricksXPos.length;i++)
-		{
-			if(brickON[i]==1)
-			{			
-				breakBrickImage.paintIcon(c, g, bricksXPos[i],bricksYPos[i]);
-			}
-		}
-	}
-	
-	public boolean checkSolidCollision(int x, int y)
-	{
+//	Check bullet collision
+	public boolean checkSolidCollision(int x, int y) {
 		boolean collided = false;
-		for(int i=0; i< solidBricksXPos.length;i++)
-		{
-			
-			
-			if(new Rectangle(x, y, 10, 10).intersects(new Rectangle(solidBricksXPos[i], solidBricksYPos[i], 50, 50)))
-			{
-//					brickON[i] = 0;
+		int solidBricksCount = solidBricksXPos.length;
+		for(int i=0; i< solidBricksCount; i++) {
+			if(new Rectangle(x, y, 10, 10).intersects(new Rectangle(solidBricksXPos[i], solidBricksYPos[i], 50, 50))) {
 				collided = true;
 				break;
 			}
-			
 		}
-		
 		return collided;
 	}
 	
-	public boolean checkBreakCollision(int x, int y)
-	{
+	public boolean checkBreakCollision(int x, int y) {
 		boolean collided = false;
-		for(int i=0; i< brickON.length;i++)
-		{		
-			if(brickON[i]==1)
-			{
-				if(new Rectangle(x, y, 10, 10).intersects(new Rectangle(bricksXPos[i], bricksYPos[i], 50, 50)))
-				{		
+		int breakBricksCouint = brickON.length;
+		for(int i=0; i< breakBricksCouint;i++) {		
+			if(brickON[i]==1) {
+				if(new Rectangle(x, y, 10, 10).intersects(new Rectangle(bricksXPos[i], bricksYPos[i], 50, 50))) {		
 					brickON[i] = 0;
 					collided = true;
 					break;
@@ -93,6 +76,72 @@ public class Brick {
 			}
 		}
 		
+		return collided;
+	}
+	
+//	Check if wall is just front of the player
+	public boolean checkWall(int x, int y, String dir) {
+		boolean collided = false;
+		int solidBricksCount = solidBricksXPos.length;
+		int breakBricksCouint = brickON.length;
+		if(dir == "up") {
+			for(int i=0; i< solidBricksCount; i++) {
+				if(Math.abs(solidBricksXPos[i]-x) <=40 && y-solidBricksYPos[i]==50) {
+					collided = true;
+					return collided;
+				}
+			}
+			
+			for(int i=0; i< breakBricksCouint; i++) {
+				if(brickON[i] == 1 && Math.abs(bricksXPos[i]-x) <= 40 && y-bricksYPos[i]== 50) {
+					collided = true;
+					return collided;
+				}
+			}
+		} else if(dir == "down") {
+			for(int i=0; i< solidBricksCount; i++) {
+				if(Math.abs(solidBricksXPos[i]-x) <= 40 && solidBricksYPos[i]-y==50) {
+					collided = true;
+					return collided;
+				}
+			}
+			
+			for(int i=0; i< breakBricksCouint; i++) {
+				if(brickON[i] == 1 && Math.abs(bricksXPos[i]-x) <= 40 && bricksYPos[i]-y== 50) {
+					collided = true;
+					return collided;
+				}
+			}
+		} else if(dir == "left") {
+			for(int i=0; i< solidBricksCount; i++) {
+				if(x-solidBricksXPos[i]==50 &&  Math.abs(solidBricksYPos[i]-y) <= 40) {
+					collided = true;
+					return collided;
+				}
+			}
+			
+			for(int i=0; i< breakBricksCouint; i++) {
+				if(brickON[i] == 1 && x-bricksXPos[i]==50 && Math.abs(bricksYPos[i]-y) <= 40) {
+					collided = true;
+					return collided;
+				}
+			}
+		} else if(dir == "right") {
+			for(int i=0; i< solidBricksCount; i++) {
+				if(solidBricksXPos[i]-x==50 &&  Math.abs(solidBricksYPos[i]-y) <= 40) {
+					collided = true;
+					return collided;
+				}
+			}
+			
+			for(int i=0; i< breakBricksCouint; i++) {
+				if(brickON[i] == 1 && bricksXPos[i]-x==50 && Math.abs(bricksYPos[i]-y) <= 40) {
+					collided = true;
+					return collided;
+				}
+			}
+		}
+	
 		return collided;
 	}
 	
