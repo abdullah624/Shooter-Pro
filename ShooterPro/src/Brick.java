@@ -56,6 +56,7 @@ public class Brick {
 		int solidBricksCount = solidBricksXPos.length;
 		for(int i=0; i< solidBricksCount; i++) {
 			if(new Rectangle(x, y, 10, 10).intersects(new Rectangle(solidBricksXPos[i], solidBricksYPos[i], 50, 50))) {
+				
 				collided = true;
 				break;
 			}

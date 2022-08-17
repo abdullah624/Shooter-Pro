@@ -22,7 +22,7 @@ public class Shooter2Bullet {
 	}
 	
 	public void drawBullet(Graphics g) {
-		g.setColor(Color.yellow);
+		g.setColor(Color.RED);
 		g.fillOval((int) x, (int) y, 10, 10);
 	}
 	
