@@ -17,6 +17,7 @@ public class GamePlay extends JPanel implements ActionListener {
 	private int shooter1lives = 10;
 	private boolean shooter1Shoot = false;
 	private String bulletShootDir1 = "";
+	private int count1=0,count2=0;
 	
 	
 	private ImageIcon shooter2;	
@@ -43,6 +44,9 @@ public class GamePlay extends JPanel implements ActionListener {
 	private Shooter2Bullet shooter2Bullet = null;
 
 	private boolean play = true;
+	
+	
+	
 	
 	public GamePlay() {		
 		br = new Brick();
@@ -114,6 +118,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					}
 				}
 				else {
+					shooter1Bullet.bulCount(count1);
 					shooter1Bullet.move(bulletShootDir1);
 					shooter1Bullet.drawBullet(g);
 				}
@@ -124,7 +129,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					shooter2lives -= 1;
 					shooter1Bullet = null;
 					shooter1Shoot = false;
-					bulletShootDir1 = "";
+					bulletShootDir1 = "";count1++;
 				}
 				
 				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
@@ -160,13 +165,13 @@ public class GamePlay extends JPanel implements ActionListener {
 					shooter1score += 5;
 					shooter1Bullet = null;
 					shooter1Shoot = false;
-					bulletShootDir1 = "";
+					bulletShootDir1 = "";count1++;
 				}
 	
 				if(shooter1Bullet.getYPos() < 1 || shooter1Bullet.getYPos() > 580 || shooter1Bullet.getXPos() < 1 || shooter1Bullet.getXPos() > 630) {
 					shooter1Bullet = null;
 					shooter1Shoot = false;
-					bulletShootDir1 = "";
+					bulletShootDir1 = "";count1++;
 				}
 			}
 			
@@ -187,6 +192,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					}
 				}
 				else {
+					shooter2Bullet.bulCount(count2);
 					shooter2Bullet.move(bulletShootDir2);
 					shooter2Bullet.drawBullet(g);
 				}
@@ -197,7 +203,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					shooter1lives -= 1;
 					shooter2Bullet = null;
 					shooter2Shoot = false;
-					bulletShootDir2 = "";
+					bulletShootDir2 = "";count2++;
 				}
 				
 				if(br.checkSolidCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
@@ -216,7 +222,7 @@ public class GamePlay extends JPanel implements ActionListener {
 					else if(shooter2left) {			
 						bulletShootDir2 = "right";
 					}
-				
+					
 //				else {
 //					shooter2Bullet.move(bulletShootDir2);
 //					shooter2Bullet.drawBullet(g);
@@ -227,13 +233,13 @@ public class GamePlay extends JPanel implements ActionListener {
 					shooter2score += 5;
 					shooter2Bullet = null;
 					shooter2Shoot = false;
-					bulletShootDir2 = "";
+					bulletShootDir2 = "";count2++;
 				}
 				
 				if(shooter2Bullet.getYPos() < 1 || shooter2Bullet.getYPos() > 580 || shooter2Bullet.getXPos() < 1 || shooter2Bullet.getXPos() > 630) {
 					shooter2Bullet = null;
 					shooter2Shoot = false;
-					bulletShootDir2 = "";
+					bulletShootDir2 = "";count2++;
 				}
 			}
 		}
@@ -244,13 +250,16 @@ public class GamePlay extends JPanel implements ActionListener {
 		g.setColor(Color.white);
 		g.setFont(new Font("serif",Font.BOLD, 20));
 		g.drawString("Player 1", 670,30);
-		g.drawString("Player 2", 670,150);
+		g.drawString("Player 2", 670,180);
 		
 		g.setFont(new Font("serif",Font.BOLD, 15));
 		g.drawString("Score:  "+shooter1score, 670,60);
 		g.drawString("Lives:  "+shooter1lives, 670,90);	
-		g.drawString("Score:  "+shooter2score, 670,180);
-		g.drawString("Lives:  "+shooter2lives, 670,210);
+		g.drawString("Bullet:  "+(15-count1), 670,120);
+		g.drawString("Score:  "+shooter2score, 670,210);
+		g.drawString("Lives:  "+shooter2lives, 670,240);
+		g.drawString("Bullet:  "+(15-count2), 670,270);
+//		g.add(button);
 		
 		if(shooter1lives == 0) {
 			g.setColor(Color.white);
@@ -511,5 +520,7 @@ public class GamePlay extends JPanel implements ActionListener {
 			
 		}
 	}
+	
+	
 
 }
