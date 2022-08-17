@@ -34,7 +34,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	private int delay=8;
-	
+	private int finish=00;
 	
 	private Shooter1Listener shooter1Listener;
 	private Shooter2Listener shooter2Listener;
@@ -67,7 +67,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 		
 		// score panel background
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(660, 0, 140, 600);
+		g.fillRect(660, 0, 440, 900);
 		
 		// draw solid bricks
 		br.drawSolidBricks(this, g);
@@ -99,6 +99,16 @@ public class TIMERGAME extends JPanel implements ActionListener {
 				shooter2=new ImageIcon("images/shooter2left.png");
 						
 			shooter2.paintIcon(this, g, shooter2X, shooter2Y);
+			
+			
+			finish++;
+			if(finish>1950)
+				{
+				if(shooter1lives>shooter2lives)
+					shooter2lives=0;
+				else
+					shooter1lives=0;
+				}
 			
 			// Shooter 1 shooting and scoring
 			if(shooter1Bullet != null && shooter1Shoot) {
@@ -256,6 +266,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 		g.drawString("Lives:  "+shooter1lives, 670,90);	
 		g.drawString("Score:  "+shooter2score, 670,180);
 		g.drawString("Lives:  "+shooter2lives, 670,210);
+		g.drawString("Remaining time:  "+(32-finish/60), 670,250);
 //		g.add(button);
 		
 		if(shooter1lives == 0) {
@@ -318,6 +329,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 				shooter2lives = 10;
 				
 				play = true;
+				finish=0;
 				repaint();
 			}
 			
