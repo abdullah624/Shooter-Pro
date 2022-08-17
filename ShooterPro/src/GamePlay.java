@@ -49,7 +49,7 @@ public class GamePlay extends JPanel implements ActionListener {
 		shooter1Listener = new Shooter1Listener();
 		shooter2Listener = new Shooter2Listener();
         setFocusable(true);
-        //addKeyListener(this);
+        
         addKeyListener(shooter1Listener);
         addKeyListener(shooter2Listener);
         setFocusTraversalKeysEnabled(false);
@@ -128,9 +128,33 @@ public class GamePlay extends JPanel implements ActionListener {
 				}
 				
 				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
-					shooter1Bullet = null;
-					shooter1Shoot = false;
-					bulletShootDir1 = "";				
+//					shooter1Bullet((double)shooter1Bullet.getXPos(), (double)shooter1Bullet.getYPos());
+//					shooter1Shoot = true;
+//					bulletShootDir1 = "";
+					if(shooter1up) {					
+						bulletShootDir1 = "down";
+					}
+					else if(shooter1down) {					
+						bulletShootDir1 = "up";
+					}
+					else if(shooter1right) {				
+						bulletShootDir1 = "left";
+					}
+					else if(shooter1left) {			
+						bulletShootDir1 = "right";
+					}
+				
+//				else {
+//					shooter1Bullet.move(bulletShootDir1);
+//					shooter1Bullet.drawBullet(g);
+//				}
+//					if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
+////					
+//					shooter1Bullet=null;
+//					shooter1Shoot = false;
+//					bulletShootDir1 = "";
+//					}
+					
 				}
 				else if(br.checkBreakCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
 					shooter1score += 5;
@@ -147,7 +171,7 @@ public class GamePlay extends JPanel implements ActionListener {
 			}
 			
 			// Shooter 2 shooting and scoring
-			if(shooter2Bullet != null && shooter2Shoot) {
+			if(shooter2Bullet != null && shooter2Shoot){
 				if(bulletShootDir2.equals("")) {
 					if(shooter2up) {					
 						bulletShootDir2 = "up";
@@ -177,9 +201,27 @@ public class GamePlay extends JPanel implements ActionListener {
 				}
 				
 				if(br.checkSolidCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
-					shooter2Bullet = null;
-					shooter2Shoot = false;
-					bulletShootDir2 = "";				
+//					shooter2Bullet((double)shooter2Bullet.getXPos(), (double)shooter2Bullet.getYPos());
+//					shooter2Shoot = true;
+//					bulletShootDir1 = "";
+					if(shooter2up) {					
+						bulletShootDir2 = "down";
+					}
+					else if(shooter2down) {					
+						bulletShootDir2 = "up";
+					}
+					else if(shooter2right) {				
+						bulletShootDir2 = "left";
+					}
+					else if(shooter2left) {			
+						bulletShootDir2 = "right";
+					}
+				
+//				else {
+//					shooter2Bullet.move(bulletShootDir2);
+//					shooter2Bullet.drawBullet(g);
+//				}
+				
 				}
 				else if(br.checkBreakCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
 					shooter2score += 5;
