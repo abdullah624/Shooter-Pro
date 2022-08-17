@@ -1,9 +1,10 @@
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
 
 public class TIMERGAME extends JPanel implements ActionListener {
-	
+	private JFrame obj2 = new JFrame();
 	private Brick br;
 	
 	private ImageIcon shooter1;	
@@ -31,6 +32,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 	private boolean shooter2Shoot = false;
 	private String bulletShootDir2 = "";
 	
+	private boolean levelindicator=false;
 	
 	private Timer timer;
 	private int delay=8;
@@ -38,6 +40,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 	
 	private Shooter1Listener shooter1Listener;
 	private Shooter2Listener shooter2Listener;
+	private mouseListener  mouseListener;
 	
 	private Shooter1Bullet shooter1Bullet = null;
 	private Shooter2Bullet shooter2Bullet = null;
@@ -51,10 +54,12 @@ public class TIMERGAME extends JPanel implements ActionListener {
 		br = new Brick();
 		shooter1Listener = new Shooter1Listener();
 		shooter2Listener = new Shooter2Listener();
+		mouseListener= new mouseListener();
         setFocusable(true);
         
         addKeyListener(shooter1Listener);
         addKeyListener(shooter2Listener);
+        addMouseListener(mouseListener);
         setFocusTraversalKeysEnabled(false);
         timer = new Timer(delay, this);
         timer.start();
@@ -74,8 +79,9 @@ public class TIMERGAME extends JPanel implements ActionListener {
 		
 		// draw breakable bricks	
 		br.drawBreakBricks(this, g);
-//		while(play>0) {
+
 		if(play) {
+
 			// draw shooter 1
 			if(shooter1up)
 				shooter1=new ImageIcon("images/shooter1up.png");	
@@ -141,9 +147,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 				}
 				
 				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
-//					shooter1Bullet((double)shooter1Bullet.getXPos(), (double)shooter1Bullet.getYPos());
-//					shooter1Shoot = true;
-//					bulletShootDir1 = "";
+
 					if(shooter1up) {					
 						bulletShootDir1 = "down";
 					}
@@ -156,17 +160,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 					else if(shooter1left) {			
 						bulletShootDir1 = "right";
 					}
-				
-//				else {
-//					shooter1Bullet.move(bulletShootDir1);
-//					shooter1Bullet.drawBullet(g);
-//				}
-//					if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
-////					
-//					shooter1Bullet=null;
-//					shooter1Shoot = false;
-//					bulletShootDir1 = "";
-//					}
+
 					
 				}
 				else if(br.checkBreakCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
@@ -214,9 +208,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 				}
 				
 				if(br.checkSolidCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
-//					shooter2Bullet((double)shooter2Bullet.getXPos(), (double)shooter2Bullet.getYPos());
-//					shooter2Shoot = true;
-//					bulletShootDir1 = "";
+			
 					if(shooter2up) {					
 						bulletShootDir2 = "down";
 					}
@@ -230,10 +222,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 						bulletShootDir2 = "right";
 					}
 				
-//				else {
-//					shooter2Bullet.move(bulletShootDir2);
-//					shooter2Bullet.drawBullet(g);
-//				}
+
 				
 				}
 				else if(br.checkBreakCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
@@ -253,7 +242,12 @@ public class TIMERGAME extends JPanel implements ActionListener {
 		//end of play
 		
 //	}
-		
+		if(levelindicator) {
+			play=false;
+			levelindicator=false;
+			play=true;g.dispose();
+			
+		}
 		
 		// Score Panel 		
 		g.setColor(Color.white);
@@ -262,13 +256,19 @@ public class TIMERGAME extends JPanel implements ActionListener {
 		g.drawString("Player 2", 670,150);
 		
 		g.setFont(new Font("serif",Font.BOLD, 15));
-		g.drawString("Score:  "+shooter1score, 670,60);
-		g.drawString("Lives:  "+shooter1lives, 670,90);	
-		g.drawString("Score:  "+shooter2score, 670,180);
-		g.drawString("Lives:  "+shooter2lives, 670,210);
+		g.drawString("Score:  "+shooter1score, 675,60);
+		g.drawString("Lives:  "+shooter1lives, 675,90);	
+		g.drawString("Score:  "+shooter2score, 675,180);
+		g.drawString("Lives:  "+shooter2lives, 675,210);
 		g.drawString("Remaining time:  "+(32-finish/60), 670,250);
-//		g.add(button);
+
 		
+		g.setColor(Color.GRAY);
+		g.drawRect(680, 320, 50, 30);
+		g.fillRect(680,320, 50,30);
+		g.setColor(Color.white);
+		g.drawString("level1 ", 685,340);
+        
 		if(shooter1lives == 0) {
 			g.setColor(Color.white);
 			g.setFont(new Font("serif",Font.BOLD, 60));
@@ -529,7 +529,50 @@ public class TIMERGAME extends JPanel implements ActionListener {
 			
 		}
 	}
-	
+	public class mouseListener implements MouseListener{
+		public void mouseClicked(MouseEvent e) {
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+			if((e.getX()>680&&e.getX()<725)&&(e.getY()>320&&e.getY()<350)) {
+				System.out.println(e.getX()+"im  x");
+//				JFrame obj2 = new JFrame();
+				GamePlay gp =new GamePlay();
+				obj2.setBounds(10, 10, 900, 630);
+				obj2.setTitle("Shooter Pro ");	
+				obj2.setBackground(Color.gray);
+				obj2.setResizable(false);
+				obj2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				obj2.add(gp);
+				levelindicator=true;
+				obj2.setVisible(true);
+				
+			}
+				
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
 	
 
 }
