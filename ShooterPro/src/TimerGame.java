@@ -40,7 +40,7 @@ public class TimerGame extends JPanel implements ActionListener {
 	
 	private Shooter1Listener shooter1Listener;
 	private Shooter2Listener shooter2Listener;
-	private mouseListener  mouseListener;
+
 	
 	private Shooter1Bullet shooter1Bullet = null;
 	private Shooter2Bullet shooter2Bullet = null;
@@ -54,12 +54,12 @@ public class TimerGame extends JPanel implements ActionListener {
 		br = new Brick();
 		shooter1Listener = new Shooter1Listener();
 		shooter2Listener = new Shooter2Listener();
-		mouseListener= new mouseListener();
+		
         setFocusable(true);
         
         addKeyListener(shooter1Listener);
         addKeyListener(shooter2Listener);
-        addMouseListener(mouseListener);
+      
         setFocusTraversalKeysEnabled(false);
         timer = new Timer(delay, this);
         timer.start();
@@ -147,20 +147,9 @@ public class TimerGame extends JPanel implements ActionListener {
 				}
 				
 				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
-
-					if(shooter1up) {					
-						bulletShootDir1 = "down";
-					}
-					else if(shooter1down) {					
-						bulletShootDir1 = "up";
-					}
-					else if(shooter1right) {				
-						bulletShootDir1 = "left";
-					}
-					else if(shooter1left) {			
-						bulletShootDir1 = "right";
-					}
-
+					shooter1Bullet = null;
+					shooter1Shoot = false;
+					bulletShootDir1 = "";
 					
 				}
 				else if(br.checkBreakCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
@@ -208,21 +197,9 @@ public class TimerGame extends JPanel implements ActionListener {
 				}
 				
 				if(br.checkSolidCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
-			
-					if(shooter2up) {					
-						bulletShootDir2 = "down";
-					}
-					else if(shooter2down) {					
-						bulletShootDir2 = "up";
-					}
-					else if(shooter2right) {				
-						bulletShootDir2 = "left";
-					}
-					else if(shooter2left) {			
-						bulletShootDir2 = "right";
-					}
-				
-
+					shooter2Bullet = null;
+					shooter2Shoot = false;
+					bulletShootDir2 = "";
 				
 				}
 				else if(br.checkBreakCollision(shooter2Bullet.getXPos(), shooter2Bullet.getYPos())) {
@@ -245,7 +222,7 @@ public class TimerGame extends JPanel implements ActionListener {
 		if(levelindicator) {
 			play=false;
 			levelindicator=false;
-			play=true;g.dispose();
+			g.dispose();
 			
 		}
 		
@@ -263,13 +240,7 @@ public class TimerGame extends JPanel implements ActionListener {
 		g.drawString("Remaining time:  "+(32-finish/60), 670,250);
 
 		
-		g.setColor(Color.GRAY);
-		g.drawRect(680, 320, 50, 30);
-		g.fillRect(680,320, 50,30);
-		g.setColor(Color.white);
-		g.drawString("level1 ", 685,340);
-        
-		if(shooter1lives == 0) {
+		if((shooter1lives == 0) &&(shooter2score>shooter1score)){
 			g.setColor(Color.white);
 			g.setFont(new Font("serif",Font.BOLD, 60));
 			g.drawString("Game Over", 200,300);
@@ -279,7 +250,17 @@ public class TimerGame extends JPanel implements ActionListener {
 			g.setFont(new Font("serif",Font.BOLD, 30));
 			g.drawString("(Space to Restart)", 230,430);
 		}
-		else if(shooter2lives == 0) {
+		else if((shooter1lives == 0) &&(shooter2score<shooter1score)){
+			g.setColor(Color.white);
+			g.setFont(new Font("serif",Font.BOLD, 60));
+			g.drawString("Game Over", 200,300);
+			g.drawString("Player 1 Won!", 180,380);
+			play = false;
+			g.setColor(Color.white);
+			g.setFont(new Font("serif",Font.BOLD, 30));
+			g.drawString("(Space to Restart)", 230,430);
+		}
+		else if((shooter2lives == 0)&&(shooter2score<shooter1score)) {
 			g.setColor(Color.white);
 			g.setFont(new Font("serif",Font.BOLD, 60));
 			g.drawString("Game Over", 200,300);
@@ -289,7 +270,26 @@ public class TimerGame extends JPanel implements ActionListener {
 			g.drawString("(Space to Restart)", 230,430);
 			play = false;
 		}
-		
+		else if((shooter2lives == 0)&&(shooter2score>shooter1score)) {
+			g.setColor(Color.white);
+			g.setFont(new Font("serif",Font.BOLD, 60));
+			g.drawString("Game Over", 200,300);
+			g.drawString("Player 2 Won!", 180,380);
+			g.setColor(Color.white);
+			g.setFont(new Font("serif",Font.BOLD, 30));
+			g.drawString("(Space to Restart)", 230,430);
+			play = false;
+		}
+		else if((shooter1lives == 0||shooter2lives == 0)&&(shooter2score==shooter1score)) {
+			g.setColor(Color.white);
+			g.setFont(new Font("serif",Font.BOLD, 60));
+			g.drawString("Game Over", 200,300);
+			g.drawString("      Draw!", 180,380);
+			g.setColor(Color.white);
+			g.setFont(new Font("serif",Font.BOLD, 30));
+			g.drawString("(Space to Restart)", 230,430);
+			play = false;
+		}
 		
 		
 		g.dispose();
@@ -529,50 +529,7 @@ public class TimerGame extends JPanel implements ActionListener {
 			
 		}
 	}
-	public class mouseListener implements MouseListener{
-		public void mouseClicked(MouseEvent e) {
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-			if((e.getX()>680&&e.getX()<725)&&(e.getY()>320&&e.getY()<350)) {
-				System.out.println(e.getX()+"im  x");
-//				JFrame obj2 = new JFrame();
-				BulletLimit gp =new BulletLimit();
-				obj2.setBounds(10, 10, 900, 630);
-				obj2.setTitle("Shooter Pro ");	
-				obj2.setBackground(Color.gray);
-				obj2.setResizable(false);
-				obj2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				obj2.add(gp);
-				levelindicator=true;
-				obj2.setVisible(true);
-				
-			}
-				
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	}
+	
 	
 
 }

@@ -210,27 +210,57 @@ public class Level1 extends JPanel implements ActionListener {
 		g.drawString("Score:  "+shooter2score, 685,180);
 		g.drawString("Lives:  "+shooter2lives, 685,210);
 
-		if(shooter1lives == 0) {
-			g.setColor(Color.white);
-			g.setFont(new Font("serif",Font.BOLD, 60));
-			g.drawString("Game Over", 200,300);
-			g.drawString("Player 2 Won!", 180,380);
-			play = false;
-			g.setColor(Color.white);
-			g.setFont(new Font("serif",Font.BOLD, 30));
-			g.drawString("(Space to Restart)", 230,430);
-		}
-		else if(shooter2lives == 0) {
-			g.setColor(Color.white);
-			g.setFont(new Font("serif",Font.BOLD, 60));
-			g.drawString("Game Over", 200,300);
-			g.drawString("Player 1 Won!", 180,380);
-			g.setColor(Color.white);
-			g.setFont(new Font("serif",Font.BOLD, 30));
-			g.drawString("(Space to Restart)", 230,430);
-			play = false;
-		}
-
+		
+		if((shooter1lives == 0) &&(shooter2score>shooter1score)){
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 60));
+		g.drawString("Game Over", 200,300);
+		g.drawString("Player 2 Won!", 180,380);
+		play = false;
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 30));
+		g.drawString("(Space to Restart)", 230,430);
+	}
+	else if((shooter1lives == 0) &&(shooter2score<shooter1score)){
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 60));
+		g.drawString("Game Over", 200,300);
+		g.drawString("Player 1 Won!", 180,380);
+		play = false;
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 30));
+		g.drawString("(Space to Restart)", 230,430);
+	}
+	else if((shooter2lives == 0)&&(shooter2score<shooter1score)) {
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 60));
+		g.drawString("Game Over", 200,300);
+		g.drawString("Player 1 Won!", 180,380);
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 30));
+		g.drawString("(Space to Restart)", 230,430);
+		play = false;
+	}
+	else if((shooter2lives == 0)&&(shooter2score>shooter1score)) {
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 60));
+		g.drawString("Game Over", 200,300);
+		g.drawString("Player 2 Won!", 180,380);
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 30));
+		g.drawString("(Space to Restart)", 230,430);
+		play = false;
+	}
+	else if((shooter1lives == 0||shooter2lives == 0)&&(shooter2score==shooter1score)) {
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 60));
+		g.drawString("Game Over", 200,300);
+		g.drawString("      Draw!", 180,380);
+		g.setColor(Color.white);
+		g.setFont(new Font("serif",Font.BOLD, 30));
+		g.drawString("(Space to Restart)", 230,430);
+		play = false;
+	}
 
 
 		g.dispose();

@@ -37,7 +37,7 @@ public class DeveloperInfo extends JPanel implements ActionListener{
 		
 		g.setColor(Color.white);
 		g.setFont(new Font("serif",Font.ITALIC, 30));
-		g.drawString("Deleloped by", 40, 230);
+		g.drawString("Developed by", 40, 230);
 		g.drawString("........................", 30, 250);
 		
 		shooter1 = new ImageIcon("images/mokbul.png");
