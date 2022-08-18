@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class GamePlay extends JPanel implements ActionListener {
 	private JFrame obj1 = new JFrame();
+	
 	private Brick br;
 	
 	private ImageIcon shooter1;	
@@ -519,6 +520,8 @@ public class GamePlay extends JPanel implements ActionListener {
 			
 		}
 	}
+	
+	
 	public class mouseListener implements MouseListener{
 		public void mouseClicked(MouseEvent e) {
 			
@@ -531,7 +534,7 @@ public class GamePlay extends JPanel implements ActionListener {
 			if((e.getX()>680&&e.getX()<725)&&(e.getY()>320&&e.getY()<350)) {
 				System.out.println(e.getX()+"im  x gameplay");
 //				JFrame obj1 = new JFrame();
-				TIMERGAME tg =new TIMERGAME();
+				TimerGame tg = new TimerGame();
 				obj1.setBounds(10, 10, 900, 630);
 				obj1.setTitle("Shooter Pro ");	
 				obj1.setBackground(Color.gray);

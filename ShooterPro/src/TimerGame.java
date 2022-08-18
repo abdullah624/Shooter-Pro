@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class TIMERGAME extends JPanel implements ActionListener {
+public class TimerGame extends JPanel implements ActionListener {
 	private JFrame obj2 = new JFrame();
 	private Brick br;
 	
@@ -50,7 +50,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 	
 	
 	
-	public TIMERGAME() {		
+	public TimerGame() {		
 		br = new Brick();
 		shooter1Listener = new Shooter1Listener();
 		shooter2Listener = new Shooter2Listener();
@@ -329,12 +329,12 @@ public class TIMERGAME extends JPanel implements ActionListener {
 				shooter2lives = 10;
 				
 				play = true;
-				finish=0;
+				finish = 0;
 				repaint();
 			}
 			
 			// Shooter 1 shoots
-			if(e.getKeyCode()== KeyEvent.VK_U) {
+			if(e.getKeyCode() == KeyEvent.VK_U) {
 				if(!shooter1Shoot) {
 					if(shooter1up) {					
 						shooter1Bullet = new Shooter1Bullet(shooter1X + 20, shooter1Y);
@@ -354,7 +354,7 @@ public class TIMERGAME extends JPanel implements ActionListener {
 			}
 
 			// Shooter 1 navigation
-			if(e.getKeyCode()== KeyEvent.VK_W) {
+			if(e.getKeyCode() == KeyEvent.VK_W) {
 				if(br.checkWall(shooter1X, shooter1Y, "up")) {
 					shooter1right = false;
 					shooter1left = false;
