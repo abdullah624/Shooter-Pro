@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class GamePlay extends JPanel implements ActionListener {
+public class BulletLimit extends JPanel implements ActionListener {
 	private JFrame obj1 = new JFrame();
 	
 	private Brick br;
@@ -18,7 +18,7 @@ public class GamePlay extends JPanel implements ActionListener {
 	private int shooter1lives = 10;
 	private boolean shooter1Shoot = false;
 	private String bulletShootDir1 = "";
-	private int count1=0,count2=0,max=15;
+	private int count1=0, count2=0, max=30;
 	
 	
 	private ImageIcon shooter2;	
@@ -51,7 +51,7 @@ public class GamePlay extends JPanel implements ActionListener {
 	
 	
 	
-	public GamePlay() {		
+	public BulletLimit() {		
 		br = new Brick();
 		shooter1Listener = new Shooter1Listener();
 		shooter2Listener = new Shooter2Listener();
@@ -134,21 +134,22 @@ public class GamePlay extends JPanel implements ActionListener {
 					shooter2lives -= 1;
 					shooter1Bullet = null;
 					shooter1Shoot = false;
-					bulletShootDir1 = "";count1++;
+					bulletShootDir1 = "";
+					count1++;
 				}
 				
 				if(br.checkSolidCollision(shooter1Bullet.getXPos(), shooter1Bullet.getYPos())) {
 
-					if(shooter1up) {					
+					if(bulletShootDir1 == "up") {					
 						bulletShootDir1 = "down";
 					}
-					else if(shooter1down) {					
+					else if(bulletShootDir1 == "down") {					
 						bulletShootDir1 = "up";
 					}
-					else if(shooter1right) {				
+					else if(bulletShootDir1 == "right") {				
 						bulletShootDir1 = "left";
 					}
-					else if(shooter1left) {			
+					else if(bulletShootDir1 == "left") {			
 						bulletShootDir1 = "right";
 					}
 				
@@ -159,13 +160,15 @@ public class GamePlay extends JPanel implements ActionListener {
 					shooter1score += 5;
 					shooter1Bullet = null;
 					shooter1Shoot = false;
-					bulletShootDir1 = "";count1++;
+					bulletShootDir1 = "";
+					count1++;
 				}
 	
 				if(shooter1Bullet.getYPos() < 1 || shooter1Bullet.getYPos() > 580 || shooter1Bullet.getXPos() < 1 || shooter1Bullet.getXPos() > 630) {
 					shooter1Bullet = null;
 					shooter1Shoot = false;
-					bulletShootDir1 = "";count1++;
+					bulletShootDir1 = "";
+					count1++;
 				}
 			}
 			

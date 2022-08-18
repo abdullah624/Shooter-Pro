@@ -36,7 +36,7 @@ public class TimerGame extends JPanel implements ActionListener {
 	
 	private Timer timer;
 	private int delay=8;
-	private int finish=00;
+	private int finish=0;
 	
 	private Shooter1Listener shooter1Listener;
 	private Shooter2Listener shooter2Listener;
@@ -541,7 +541,7 @@ public class TimerGame extends JPanel implements ActionListener {
 			if((e.getX()>680&&e.getX()<725)&&(e.getY()>320&&e.getY()<350)) {
 				System.out.println(e.getX()+"im  x");
 //				JFrame obj2 = new JFrame();
-				GamePlay gp =new GamePlay();
+				BulletLimit gp =new BulletLimit();
 				obj2.setBounds(10, 10, 900, 630);
 				obj2.setTitle("Shooter Pro ");	
 				obj2.setBackground(Color.gray);

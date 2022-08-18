@@ -64,7 +64,7 @@ public class Level1 extends JPanel implements ActionListener {
 
 		// score panel background
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(660, 0, 140, 600);
+		g.fillRect(660, 0, 250, 600);
 
 		// draw solid bricks
 		br.drawSolidBricks(this, g);
@@ -201,14 +201,14 @@ public class Level1 extends JPanel implements ActionListener {
 		// Score Panel 		
 		g.setColor(Color.white);
 		g.setFont(new Font("serif",Font.BOLD, 20));
-		g.drawString("Player 1", 670,30);
-		g.drawString("Player 2", 670,150);
+		g.drawString("Player 1", 680,30);
+		g.drawString("Player 2", 680,150);
 
 		g.setFont(new Font("serif",Font.BOLD, 15));
-		g.drawString("Score:  "+shooter1score, 670,60);
-		g.drawString("Lives:  "+shooter1lives, 670,90);	
-		g.drawString("Score:  "+shooter2score, 670,180);
-		g.drawString("Lives:  "+shooter2lives, 670,210);
+		g.drawString("Score:  "+shooter1score, 685,60);
+		g.drawString("Lives:  "+shooter1lives, 685,90);	
+		g.drawString("Score:  "+shooter2score, 685,180);
+		g.drawString("Lives:  "+shooter2lives, 685,210);
 
 		if(shooter1lives == 0) {
 			g.setColor(Color.white);
