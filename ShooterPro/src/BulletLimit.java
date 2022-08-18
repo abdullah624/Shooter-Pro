@@ -156,12 +156,17 @@ public class BulletLimit extends JPanel implements ActionListener {
 					count1++;
 				}
 	
+				try {
 				if(shooter1Bullet.getYPos() < 1 || shooter1Bullet.getYPos() > 580 || shooter1Bullet.getXPos() < 1 || shooter1Bullet.getXPos() > 630) {
 					shooter1Bullet = null;
 					shooter1Shoot = false;
 					bulletShootDir1 = "";
 					count1++;
-				}
+				}}
+			catch(Exception e) {
+				//
+			}
+				
 			}
 			
 			// Shooter 2 shooting and scoring
@@ -207,11 +212,16 @@ public class BulletLimit extends JPanel implements ActionListener {
 					bulletShootDir2 = "";count2++;
 				}
 				
+				try {
 				if(shooter2Bullet.getYPos() < 1 || shooter2Bullet.getYPos() > 580 || shooter2Bullet.getXPos() < 1 || shooter2Bullet.getXPos() > 630) {
 					shooter2Bullet = null;
 					shooter2Shoot = false;
 					bulletShootDir2 = "";count2++;
-				}
+				}}
+			catch(Exception e) {
+				//
+			}
+				
 			}
 		}
 		
