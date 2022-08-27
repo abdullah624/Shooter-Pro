@@ -3,7 +3,6 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class BulletLimit extends JPanel implements ActionListener {
-	private JFrame obj1 = new JFrame();
 	
 	private Brick br;
 	

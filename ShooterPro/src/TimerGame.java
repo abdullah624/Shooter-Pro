@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class TimerGame extends JPanel implements ActionListener {
-	private JFrame obj2 = new JFrame();
+	
 	private Brick br;
 	
 	private ImageIcon shooter1;	
@@ -247,7 +247,7 @@ public class TimerGame extends JPanel implements ActionListener {
 		g.drawString("Lives:  "+shooter1lives, 675,90);	
 		g.drawString("Score:  "+shooter2score, 675,180);
 		g.drawString("Lives:  "+shooter2lives, 675,210);
-		g.drawString("Remaining time:  "+(32-finish/60), 670,250);
+		g.drawString("Remaining time:  "+(32-finish/60)+"  sec", 670,250);
 
 		
 		if((shooter1lives == 0) &&(shooter2score>shooter1score)){
